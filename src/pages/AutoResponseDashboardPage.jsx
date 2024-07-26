@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
 import SearchBar from "../components/SearchBar";
 import JobCard from "../components/JobCard";
 import Pagination from "../components/Pagination";
@@ -9,6 +8,7 @@ const AutoResponseDashboardPage = () => {
     const [jobs, setJobs] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [filteredJobs, setFilteredJobs] = useState([]);
 
     useEffect(() => {
         const fetchJobs = async () => {
@@ -16,6 +16,7 @@ const AutoResponseDashboardPage = () => {
                 const response = await api.get(`/vacancies/responses?page=${page}&limit=10`);
                 setJobs(response.data.vacancies);
                 setTotalPages(response.data.pages);
+                setFilteredJobs(response.data.vacancies);  // Initialize filteredJobs with all jobs
             } catch (error) {
                 console.error('Error fetching jobs:', error);
             }
@@ -29,15 +30,15 @@ const AutoResponseDashboardPage = () => {
     };
 
     return (
-        <main className="flex flex-col items-center pt-6 pr-8 pb-20 pl-20 max-md:px-5">
-            <h1 className="mt-24 text-4xl font-bold leading-10 text-center text-black max-md:mt-10 max-md:max-w-full">
+        <main className="flex flex-col items-center pt-6 px-4 pb-20">
+            <h1 className="mt-24 text-4xl font-bold leading-10 text-center text-black">
                 Отклики отобразятся здесь
             </h1>
             <div className="mt-8 w-full max-w-4xl">
-                <SearchBar/>
+                <SearchBar setFilteredJobs={setFilteredJobs} jobs={jobs}/>
             </div>
             <div className="mt-8 w-full max-w-4xl space-y-6">
-                {jobs.map((job, index) => (
+                {filteredJobs.map((job, index) => (
                     <JobCard key={index} {...job} />
                 ))}
             </div>
