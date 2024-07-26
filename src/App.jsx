@@ -19,36 +19,36 @@ import NotFoundPage from './pages/NotFoundPage';
 import HhCallbackPage from "./pages/HhCallbackPage";
 import HiringRecruiterLandingPage from "./pages/HrLandingPage";
 import LinkedInCallbackPage from "./pages/LinkedinCallbackPage";
+import HrMainPage from "./pages/HrMainPage";
+import HrNavbar from "./components/HrNavbar";
+import ComingSoonPage from "./pages/ComingSoonPage";
 
 const AppContent = () => {
     const location = useLocation();
 
     const isLandingPage = location.pathname === '/' || location.pathname === '/hiring-managers';
     const showLandingNavbarPaths = ['/auto-response/login', '/auto-response/sign-up', '/hr/sign-up', '/hr/login'];
+    const autoResponsePaths = ['/auto-response', '/auto-response/profile', '/auto-response/home', '/auto-response/responses', '/auto-response/headhunter/callback', '/auto-response/linkedin/callback'];
+    const hrPaths = ['/hr', '/hr/profile', '/hr/main'];
+
     const definedRoutes = [
         '/',
         '/hiring-managers',
-        '/auto-response/sign-up',
-        '/auto-response/login',
-        '/hr/sign-up',
-        '/hr/login',
-        '/hr/profile',
-        '/auto-response/profile',
-        '/auto-response/home',
-        '/auto-response/responses',
-        '/auto-response/headhunter/callback',
-        '/auto-response/linkedin/callback'
+        ...showLandingNavbarPaths,
+        ...autoResponsePaths,
+        ...hrPaths,
     ];
 
     const isNotFoundPage = !definedRoutes.includes(location.pathname);
 
+    const showLandingNavbar = isLandingPage || showLandingNavbarPaths.includes(location.pathname);
+    const showAutoResponseNavbar = autoResponsePaths.some(path => location.pathname.startsWith(path));
+    const showHrNavbar = hrPaths.some(path => location.pathname.startsWith(path));
+
     return (
         <>
-            {!isNotFoundPage && (isLandingPage || showLandingNavbarPaths.includes(location.pathname)) ? (
-                <LandingNavbar/>
-            ) : (
-                !isNotFoundPage && <AutoResponseNavbar/>
-            )}
+            {!isNotFoundPage && (showLandingNavbar ? <LandingNavbar/> : showAutoResponseNavbar ?
+                <AutoResponseNavbar/> : showHrNavbar ? <HrNavbar/> : null)}
             <Routes>
                 <Route path="/" element={<AutoResponseLandingPage/>}/>
                 <Route path="/hiring-managers" element={<HiringRecruiterLandingPage/>}/>
@@ -58,6 +58,7 @@ const AppContent = () => {
                 <Route path="/hr/login" element={<HrLoginPage/>}/>
                 <Route path="/hr" element={<HrRoute/>}>
                     <Route path="profile" element={<HrProfilePage/>}/>
+                    <Route path="main" element={<HrMainPage/>}/>
                 </Route>
                 <Route path="/auto-response" element={<PrivateRoute/>}>
                     <Route path="profile" element={<AutoResponseProfilePage/>}/>
@@ -66,6 +67,7 @@ const AppContent = () => {
                     <Route path="headhunter/callback" element={<HhCallbackPage/>}/>
                     <Route path="linkedin/callback" element={<LinkedInCallbackPage/>}/>
                 </Route>
+                <Route path="/coming-soon" element={<ComingSoonPage/>}/>
                 <Route path="*" element={<NotFoundPage/>}/>
             </Routes>
             {!isNotFoundPage && isLandingPage && <Footer/>}
