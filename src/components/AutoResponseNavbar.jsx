@@ -42,15 +42,18 @@ const AutoResponseNavbar = () => {
 
     return (
         <div className="flex flex-col pt-6 bg-white">
-            <div className="flex gap-5 self-center px-5 w-full text-black max-w-[93%] max-md:flex-wrap max-md:max-w-full">
+            <div
+                className="flex gap-5 self-center px-5 w-full text-black max-w-[93%] max-md:flex-wrap max-md:max-w-full">
                 <div className="flex-auto my-auto text-3xl font-bold">
-                    <a href="/">Suhbat</a>
+                    <a href="/">I'Hunt</a>
                 </div>
                 <div className="hidden md:flex gap-10 justify-between items-center text-lg font-medium leading-6">
-                    <div className={`self-stretch my-auto ${activeLink === '/auto-response/home' ? 'active-link active' : 'active-link'}`}>
+                    <div
+                        className={`self-stretch my-auto ${activeLink === '/auto-response/home' ? 'active-link active' : 'active-link'}`}>
                         <Link to="/auto-response/home">Главная</Link>
                     </div>
-                    <div className={`self-stretch my-auto ${activeLink === '/auto-response/responses' ? 'active-link active' : 'active-link'}`}>
+                    <div
+                        className={`self-stretch my-auto ${activeLink === '/auto-response/responses' ? 'active-link active' : 'active-link'}`}>
                         <Link to="/auto-response/responses">Отклики</Link>
                     </div>
                     <div className="relative">
@@ -62,7 +65,8 @@ const AutoResponseNavbar = () => {
                         />
 
                         {isProfileMenuOpen && (
-                            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+                            <div
+                                className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
                                 {user ? (
                                     <>
                                         <Link to="/auto-response/profile">
@@ -81,24 +85,32 @@ const AutoResponseNavbar = () => {
                 </div>
                 <div className="md:hidden flex items-center">
                     <button onClick={toggleMobileMenu} className="text-black focus:outline-none">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}></path>
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                  d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}></path>
                         </svg>
                     </button>
                 </div>
             </div>
             {isMobileMenuOpen && (
-                <div className="flex flex-col gap-4 mt-4 items-center md:hidden transition-all duration-300 ease-in-out bg-gray-100 p-5 rounded-lg shadow-lg">
-                    <Link to="/auto-response/home" className={`w-full text-lg font-medium text-center text-gray-800 py-2 hover:bg-gray-200 rounded ${activeLink === '/auto-response/home' ? 'active-link active' : 'active-link'}`}>
+                <div
+                    className="flex flex-col gap-4 mt-4 items-center md:hidden transition-all duration-300 ease-in-out bg-gray-100 p-5 rounded-lg shadow-lg">
+                    <Link to="/auto-response/home"
+                          className={`w-full text-lg font-medium text-center text-gray-800 py-2 hover:bg-gray-200 rounded ${activeLink === '/auto-response/home' ? 'active-link active' : 'active-link'}`}>
                         Главная
                     </Link>
-                    <Link to="/auto-response/responses" className={`w-full text-lg font-medium text-center text-gray-800 py-2 hover:bg-gray-200 rounded ${activeLink === '/auto-response/responses' ? 'active-link active' : 'active-link'}`}>
+                    <Link to="/auto-response/responses"
+                          className={`w-full text-lg font-medium text-center text-gray-800 py-2 hover:bg-gray-200 rounded ${activeLink === '/auto-response/responses' ? 'active-link active' : 'active-link'}`}>
                         Отклики
                     </Link>
-                    <Link to="/auto-response/profile" className={`w-full text-lg font-medium text-center text-gray-800 py-2 hover:bg-gray-200 rounded ${activeLink === '/auto-response/profile' ? 'active-link active' : 'active-link'}`}>
+                    <Link to="/auto-response/profile"
+                          className={`w-full text-lg font-medium text-center text-gray-800 py-2 hover:bg-gray-200 rounded ${activeLink === '/auto-response/profile' ? 'active-link active' : 'active-link'}`}>
                         Профиль
                     </Link>
-                    <a href="" className="w-full text-lg font-medium text-center text-gray-800 py-2 hover:bg-gray-200 rounded" onClick={handleLogout}>
+                    <a href=""
+                       className="w-full text-lg font-medium text-center text-gray-800 py-2 hover:bg-gray-200 rounded"
+                       onClick={handleLogout}>
                         Выйти
                     </a>
                 </div>
