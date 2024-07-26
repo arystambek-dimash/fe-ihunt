@@ -1,6 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+    const [maxVisiblePages, setMaxVisiblePages] = useState(5);
+
+    useEffect(() => {
+        const updateMaxVisiblePages = () => {
+            if (window.innerWidth < 640) {
+                setMaxVisiblePages(3);
+            } else if (window.innerWidth < 768) {
+                setMaxVisiblePages(4);
+            } else {
+                setMaxVisiblePages(5);
+            }
+        };
+
+        updateMaxVisiblePages();
+        window.addEventListener('resize', updateMaxVisiblePages);
+
+        return () => window.removeEventListener('resize', updateMaxVisiblePages);
+    }, []);
+
     const handlePrevious = () => {
         if (currentPage > 1) {
             onPageChange(currentPage - 1);
@@ -15,13 +34,12 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
     const renderPageNumbers = () => {
         const pages = [];
-        const maxVisiblePages = 5;
-        let startPage = Math.max(1, currentPage - 2);
-        let endPage = Math.min(totalPages, currentPage + 2);
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+        let endPage = Math.min(totalPages, currentPage + Math.floor(maxVisiblePages / 2));
 
-        if (currentPage <= 3) {
+        if (currentPage <= Math.floor(maxVisiblePages / 2)) {
             endPage = Math.min(maxVisiblePages, totalPages);
-        } else if (currentPage >= totalPages - 2) {
+        } else if (currentPage >= totalPages - Math.floor(maxVisiblePages / 2)) {
             startPage = Math.max(1, totalPages - (maxVisiblePages - 1));
         }
 
@@ -34,13 +52,13 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                         e.preventDefault();
                         onPageChange(1);
                     }}
-                    className={`self-stretch my-auto ${currentPage === 1 ? 'bg-neutral-50 text-gray-950' : ''}`}
+                    className={`px-3 py-1 rounded-md ${currentPage === 1 ? 'bg-blue-500 text-white' : 'bg-white text-gray-700 hover:bg-gray-200'}`}
                 >
                     1
                 </a>
             );
             if (startPage > 2) {
-                pages.push(<span key="start-ellipsis" className="self-stretch my-auto">...</span>);
+                pages.push(<span key="start-ellipsis" className="px-3 py-1">...</span>);
             }
         }
 
@@ -53,7 +71,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                         e.preventDefault();
                         onPageChange(i);
                     }}
-                    className={`self-stretch my-auto transition duration-300 ease-in-out ${currentPage === i ? 'bg-neutral-50 text-gray-950' : ''}`}
+                    className={`px-3 py-1 rounded-md ${currentPage === i ? 'bg-blue-500 text-white' : 'bg-white text-gray-700 hover:bg-gray-200'}`}
                 >
                     {i}
                 </a>
@@ -62,7 +80,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
         if (endPage < totalPages) {
             if (endPage < totalPages - 1) {
-                pages.push(<span key="end-ellipsis" className="self-stretch my-auto">...</span>);
+                pages.push(<span key="end-ellipsis" className="px-3 py-1">...</span>);
             }
             pages.push(
                 <a
@@ -72,7 +90,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                         e.preventDefault();
                         onPageChange(totalPages);
                     }}
-                    className={`self-stretch my-auto ${currentPage === totalPages ? 'bg-neutral-50 text-gray-950' : ''}`}
+                    className={`px-3 py-1 rounded-md ${currentPage === totalPages ? 'bg-blue-500 text-white' : 'bg-white text-gray-700 hover:bg-gray-200'}`}
                 >
                     {totalPages}
                 </a>
@@ -83,37 +101,41 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     };
 
     return (
-        <nav className="flex gap-5 justify-between mt-12 max-w-full w-[472px] max-md:flex-wrap max-md:mt-10"
-             aria-label="Pagination">
+        <nav className="flex justify-center items-center space-x-2 mt-6" aria-label="Pagination">
             <button
-                className="flex justify-center items-center p-2 w-10 h-10 bg-white transition duration-300 ease-in-out shadow-lg"
+                className="flex justify-center items-center p-2 w-10 h-10 bg-white text-gray-700 rounded-md shadow-md transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200"
                 aria-label="Previous page"
                 onClick={handlePrevious}
                 disabled={currentPage === 1}
             >
-                <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/47a130f0aecd1e69fe53be1b4cf9a59172c3c10d0842d64bcbebd09b2d41c04c?apiKey=16603df5d5d944c0a2f195bca3358cf0&"
-                    alt="Previous"
-                    className="w-6 aspect-square"
-                />
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
             </button>
-            <div
-                className="flex gap-2 justify-between items-center px-5 text-sm font-medium leading-5 text-center whitespace-nowrap text-neutral-400">
+            <div className="flex space-x-1">
                 {renderPageNumbers()}
             </div>
             <button
-                className="flex justify-center items-center p-2 w-10 h-10 bg-white transition duration-300 ease-in-out shadow-lg"
+                className="flex justify-center items-center p-2 w-10 h-10 bg-white text-gray-700 rounded-md shadow-md transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200"
                 aria-label="Next page"
                 onClick={handleNext}
                 disabled={currentPage === totalPages}
             >
-                <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/f9a39410369d83046250945fd6f9664e48dbfe8e10a3a7a8c7f1e67e24d31f38?apiKey=16603df5d5d944c0a2f195bca3358cf0&"
-                    alt="Next"
-                    className="w-6 aspect-square"
-                />
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
             </button>
         </nav>
     );
