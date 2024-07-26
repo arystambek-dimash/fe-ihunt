@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import * as THREE from "three";
-import GLOBE from "vanta/dist/vanta.globe.min";
+import HALO from "vanta/dist/vanta.halo.min";
 import {useAuth} from "../context/AuthContext";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -16,7 +16,7 @@ const HiringRecruiterLandingPage = () => {
           <li>Сперва нужно создать аккаунт.
             <ul>
               <li>Чтобы создать аккаунт, нажмите "Начать" или перейдите по следующей ссылке: 
-                <a href="http://localhost:3000/hr/sign-up" title="" class="text-blue-600 transition-all duration-200 hover:underline">Регистрация</a>.
+                <a href="/hr/sign-up" title="" class="text-blue-600 transition-all duration-200 hover:underline">Регистрация</a>.
               </li>
             </ul>
           </li>
@@ -26,8 +26,8 @@ const HiringRecruiterLandingPage = () => {
             open: false
         },
         {
-            question: 'Что такое Suhbat интервью?',
-            answer: 'Suhbat интервью - это платформа, которая помогает вам с собеседованием. ИИ будет за вас проводить интервью, и всё это работает автономно😎.',
+            question: 'Что такое I\'Hunt интервью?',
+            answer: 'I\'Hunt интервью - это платформа, которая помогает вам с собеседованием. ИИ будет за вас проводить интервью, и всё это работает автономно😎.',
             open: false
         },
         {
@@ -37,7 +37,7 @@ const HiringRecruiterLandingPage = () => {
         },
         {
             question: 'Как работает система интервью?',
-            answer: 'Система интервью Suhbat использует искусственный интеллект для проведения интервью. Вы создаете вопросы, делитесь ссылкой с кандидатом, и ИИ проводит интервью, собирая и анализируя ответы кандидата.',
+            answer: 'Система интервью I\'Hunt использует искусственный интеллект для проведения интервью. Вы создаете вопросы, делитесь ссылкой с кандидатом, и ИИ проводит интервью, собирая и анализируя ответы кандидата.',
             open: false
         },
         {
@@ -47,11 +47,10 @@ const HiringRecruiterLandingPage = () => {
         },
         {
             question: 'Есть ли поддержка на других языках?',
-            answer: 'В настоящее время платформа Suhbat поддерживает только русский и английский язык. Однако мы работаем над добавлением поддержки других языков в ближайшем будущем.',
+            answer: 'В настоящее время платформа I\'Hunt поддерживает только русский и английский язык. Однако мы работаем над добавлением поддержки других языков в ближайшем будущем.',
             open: false
         }
     ]);
-
 
     const toggleFaq = (index) => {
         setFaq(faq.map((item, i) => {
@@ -66,7 +65,7 @@ const HiringRecruiterLandingPage = () => {
     }
 
     useEffect(() => {
-        GLOBE({
+        const vantaEffect = HALO({
             el: "#vanta",
             THREE: THREE,
             mouseControls: true,
@@ -76,16 +75,22 @@ const HiringRecruiterLandingPage = () => {
             minWidth: 200.00,
             scale: 1.00,
             scaleMobile: 1.00,
+            color: 0xe81359, // Your specified color
+            backgroundColor: 0x1f1437 // Your specified background color
         });
 
         AOS.init({duration: 1000});
+
+        return () => {
+            if (vantaEffect) vantaEffect.destroy();
+        };
     }, []);
 
     useEffect(() => {
         console.log('Landing page - isAuthenticated:', getIsAuthenticated(), 'isHr:', getIsHr());
     }, [getIsAuthenticated, getIsHr]);
 
-    const redirectUrl = (getIsAuthenticated() && getIsHr()) ? '/hr/home' : '/hr/login';
+    const redirectUrl = (getIsAuthenticated() && getIsHr()) ? '/hr/main' : '/hr/login';
 
     return (
         <div>
@@ -103,21 +108,21 @@ const HiringRecruiterLandingPage = () => {
                     <div
                         className="w-[80%] text-white font-bold text-5xl leading-[62px] max-md:max-w-full max-md:text-4xl max-md:leading-[53px]"
                     >
-                        Sukhbat - нанимай своего первого сотрудника
+                        I'Hunt - нанимай своего первого сотрудника
                     </div>
                     <div className="mt-12 w-full text-gray-200 leading-7 max-md:mt-10 max-md:max-w-full">
                         Сотрудники уже ждут тебя
                     </div>
-                    <a href={redirectUrl} className="w-[250px]">
+                    <a href="/coming-soon" className="w-[250px]">
                         <div
-                            className="justify-center font-bold text-white items-center text-center p-4 mt-11 max-w-full text-lg leading-6 whitespace-nowrap bg-black rounded-xl w-[250px] max-md:px-5 max-md:mt-10"
+                            className="justify-center font-bold text-white items-center text-center p-4 mt-11 max-w-full text-lg leading-6 whitespace-nowrap bg-[#e81359] rounded-xl w-[250px] max-md:px-5 max-md:mt-10"
                         >
                             Начать
                         </div>
                     </a>
                 </div>
             </div>
-            <div className="flex flex-col px-5">
+            <div className="flex flex-col px-5" data-aos="fade-up">
                 <section className="py-16 sm:py-24 lg:py-32 my-10">
                     <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
                         <div className="max-w-2xl mx-auto text-center">
@@ -129,16 +134,19 @@ const HiringRecruiterLandingPage = () => {
                             </p>
                         </div>
                         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3 lg:gap-16">
-                            <div className="p-8 bg-white border border-gray-200 rounded-lg shadow-lg">
+                            <div className="p-8 bg-white border border-gray-200 rounded-lg shadow-lg" data-aos="fade-up"
+                                 data-aos-delay="200">
                                 <h3 className="text-xl font-semibold text-gray-900">01. Зарегистрируйтесь</h3>
-                                <p className="mt-4 text-gray-600">И получите доступ ко всем услугам suhbat.kz.</p>
+                                <p className="mt-4 text-gray-600">И получите доступ ко всем услугам iamhunt.com.</p>
                             </div>
-                            <div className="p-8 bg-white border border-gray-200 rounded-lg shadow-lg">
+                            <div className="p-8 bg-white border border-gray-200 rounded-lg shadow-lg" data-aos="fade-up"
+                                 data-aos-delay="400">
                                 <h3 className="text-xl font-semibold text-gray-900">02. Создайте интервью и вопросы</h3>
                                 <p className="mt-4 text-gray-600">Поделитесь ссылкой на интервью, чтобы ИИ мог проводить
                                     собеседования с кандидатами.</p>
                             </div>
-                            <div className="p-8 bg-white border border-gray-200 rounded-lg shadow-lg">
+                            <div className="p-8 bg-white border border-gray-200 rounded-lg shadow-lg" data-aos="fade-up"
+                                 data-aos-delay="600">
                                 <h3 className="text-xl font-semibold text-gray-900">03. Выбирайте лучших</h3>
                                 <p className="mt-4 text-gray-600">Из тех, кто уже хочет у вас работать.</p>
                             </div>
@@ -146,28 +154,29 @@ const HiringRecruiterLandingPage = () => {
                         <div className="mt-12 text-center">
                             <a
                                 href="/hr/login"
-                                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+                                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-black rounded-lg custom-hover"
+                                data-aos="fade-up" data-aos-delay="800"
                             >
-                                Начать подбор на suhbat.kz
+                                Начать подбор на iamhunt.com
                             </a>
                         </div>
                     </div>
                 </section>
-
             </div>
-            <section className="py-10 bg-gray-50 sm:py-16 lg:py-24 my-10">
+            <section className="py-10 bg-gray-50 sm:py-16 lg:py-24 my-10" data-aos="fade-up">
                 <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
                     <div className="max-w-2xl mx-auto text-center">
                         <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">
                             Часто Задаваемые вопросы
                         </h2>
                     </div>
-
                     <div className="max-w-3xl mx-auto mt-8 space-y-4 md:mt-16">
                         {faq.map((item, index) => (
                             <div
                                 key={index}
                                 className="transition-all duration-200 bg-white border border-gray-200 cursor-pointer hover:bg-gray-50"
+                                data-aos="fade-up"
+                                data-aos-delay={`${200 + index * 200}`}
                             >
                                 <button
                                     type="button"
@@ -175,7 +184,6 @@ const HiringRecruiterLandingPage = () => {
                                     onClick={() => toggleFaq(index)}
                                 >
                                     <span className="flex text-lg font-semibold text-black"> {item.question} </span>
-
                                     <svg
                                         className={`w-6 h-6 text-gray-400 ${item.open ? 'rotate-180' : ''}`}
                                         xmlns="http://www.w3.org/2000/svg"
@@ -191,14 +199,12 @@ const HiringRecruiterLandingPage = () => {
                                         />
                                     </svg>
                                 </button>
-
                                 <div className={`${item.open ? 'block' : 'hidden'} px-4 pb-5 sm:px-6 sm:pb-6`}>
                                     <p dangerouslySetInnerHTML={{__html: item.answer}}></p>
                                 </div>
                             </div>
                         ))}
                     </div>
-
                     <p className="text-center text-gray-600 text-base mt-9">
                         Не нашли ответ, который ищете?{' '}
                         <a
@@ -212,29 +218,30 @@ const HiringRecruiterLandingPage = () => {
                 </div>
             </section>
             <div className="flex justify-center items-center mt-28" id="contact-section">
-                <div className="flex justify-center gap-5 max-md:flex-col max-md:gap-0 max-w-[80%]">
-                    <div className="flex flex-col w-full max-md:ml-0 max-md:w-full">
-                        <div className="flex flex-col px-5 pt-2.5 max-md:mt-10 max-md:max-w-full">
-                            <div className="text-4xl font-bold leading-10 text-black max-md:max-w-full">
-                                Получить консультацию
-                            </div>
-                            <div className="mt-6 text-lg leading-7 text-neutral-500 max-md:max-w-full">
-                                Напишите свой email, и мы свяжемся с вами.
-                            </div>
-                            <div
-                                className="flex gap-5 justify-between mt-7 bg-white rounded-xl border border-solid border-white border-opacity-30 max-md:flex-wrap max-md:pl-5 max-md:max-w-full">
-                                <input
-                                    type="email"
-                                    placeholder="Email address"
-                                    className="flex-1 px-4 py-2 text-base text-stone-500 bg-white border border-gray-300 rounded-l-xl focus:outline-none"
-                                />
-                                <button
-                                    className="px-10 py-3.5 text-s font-medium text-white bg-stone-900 rounded-r-xl">
-                                    Отправить
-                                </button>
-                            </div>
-                        </div>
+                <div className="flex flex-col w-full max-w-3xl px-5 py-10">
+                    <div className="text-center">
+                        <h3 className="text-4xl font-bold leading-10 text-black">
+                            Свяжитесь с нами
+                        </h3>
+                        <p className="mt-6 text-lg leading-7 text-neutral-500">
+                            Напишите свой email, и мы свяжемся с вами.
+                        </p>
                     </div>
+                    <form className="mt-8">
+                        <div className="flex flex-col gap-5">
+                            <input
+                                type="email"
+                                placeholder="Email address"
+                                className="px-4 py-3 text-base text-gray-700 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                            />
+                            <button
+                                type="submit"
+                                className="w-full px-6 py-3 text-lg font-medium text-white bg-black rounded-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            >
+                                Отправить
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
