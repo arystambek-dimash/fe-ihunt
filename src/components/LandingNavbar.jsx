@@ -37,7 +37,7 @@ const LandingNavbar = () => {
         <div className="flex flex-col pt-6 bg-white">
             <div className="flex gap-5 self-center px-5 w-full text-black max-w-[93%] max-md:flex-wrap max-md:max-w-full">
                 <div className="flex-auto my-auto text-3xl font-bold">
-                    <a href="#" onClick={handleLogoClick}>Suhbat</a>
+                    <a href="#" onClick={handleLogoClick}>I'Hunt</a>
                 </div>
                 <div className="hidden md:flex gap-10 justify-between items-center text-lg font-medium leading-6">
                     <div className={`self-stretch my-auto ${activeLink === '/hiring-managers' ? 'active-link active' : 'active-link'}`}>

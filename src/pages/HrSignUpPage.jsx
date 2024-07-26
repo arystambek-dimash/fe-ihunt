@@ -89,7 +89,7 @@ const HrSignUpPage = () => {
 
     const closeModal = () => {
         setIsModalOpen(false);
-        navigate('/auto-response/login');
+        navigate('/hr/login');
     };
 
     const closeErrorModal = () => {

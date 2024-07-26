@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Modal from 'react-modal';
+import parse from 'html-react-parser';
 
 const JobCard = ({
                      job_name,
@@ -36,7 +37,7 @@ const JobCard = ({
             borderRadius: '15px',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
             width: '90%',
-            maxWidth: '800px',
+            maxWidth: '600px',
             height: 'auto',
             maxHeight: '90vh',
             overflowY: 'auto',
@@ -49,18 +50,24 @@ const JobCard = ({
 
     return (
         <>
-            <article className="flex flex-col justify-center p-4 mt-4 w-full leading-6 bg-white rounded-2xl max-w-[1158px] max-md:max-w-full">
-                <div className="flex gap-3 max-md:flex-wrap">
-                    <img loading="lazy" src={employer_logo} alt={`${employer_name} logo`} className="shrink-0 self-start aspect-square w-[84px]" />
-                    <div className="flex flex-1 gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-                        <div className="flex flex-col px-px text-xs text-neutral-500">
-                            <a href={url} target="_blank" rel="noopener noreferrer" className="text-2xl font-semibold leading-9 text-neutral-700 hover:underline">
+            <article
+                className="flex flex-col justify-center p-4 mt-4 w-full leading-6 bg-gray-100 rounded-2xl shadow-lg max-w-[1158px] md:max-w-full">
+                <div className="flex gap-3 md:flex-wrap">
+                    <img loading="lazy" src={employer_logo} alt={`${employer_name} logo`}
+                         className="shrink-0 self-start aspect-square w-[84px] rounded-full border shadow-md"/>
+                    <div className="flex flex-1 gap-5 justify-between md:flex-wrap md:max-w-full">
+                        <div className="flex flex-col px-px text-sm text-neutral-500">
+                            <a href={url} target="_blank" rel="noopener noreferrer"
+                               className="text-lg font-semibold leading-6 text-neutral-700 hover:underline">
                                 {employer_name}
                             </a>
-                            <p>{job_name}</p>
+                            <p className="text-gray-600">{job_name}</p>
                         </div>
-                        <div className="flex flex-col self-end mt-7">
-                            <button onClick={openModal} className="mt-2 text-sm text-indigo-500">View Details</button>
+                        <div className="flex flex-col self-end pb-5">
+                            <p className="text-gray-700">Salary: {salary || 'undefined'}</p>
+                            <button onClick={openModal} className="mt-2 text-sm text-indigo-500 hover:underline">View
+                                Details
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -70,36 +77,32 @@ const JobCard = ({
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-2xl font-bold text-indigo-600">{job_name}</h2>
                     <button onClick={closeModal} className="text-gray-500 hover:text-gray-700 focus:outline-none">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                  d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
                 <div className="flex items-center mb-6">
-                    <img loading="lazy" src={employer_logo} alt={`${employer_name} logo`} className="w-24 h-24 rounded-full border shadow-md" />
+                    <img loading="lazy" src={employer_logo} alt={`${employer_name} logo`}
+                         className="w-16 h-16 rounded-full border shadow-md"/>
                     <div className="ml-4">
                         <p className="text-lg font-semibold text-gray-700">{employer_name}</p>
                         <p className="text-sm text-gray-500">{address}</p>
                     </div>
                 </div>
-                <iframe
-                    src={`https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=${encodeURIComponent(address)}`}
-                    width="100%"
-                    height="300"
-                    frameBorder="0"
-                    style={{ border: 0 }}
-                    allowFullScreen=""
-                    aria-hidden="false"
-                    tabIndex="0"
-                    className="mb-6 rounded-md"
-                ></iframe>
                 <div className="mb-4">
                     <h3 className="text-lg font-semibold text-gray-700 mb-2">Job Requirements</h3>
-                    <p className="text-sm text-gray-600">{requirement}</p>
+                    <div className="text-sm text-gray-600">
+                        {parse(requirement.replace(/<highlighttext>/g, '<span class="highlighttext">').replace(/<\/highlighttext>/g, '</span>'))}
+                    </div>
                 </div>
                 <div className="mb-4">
                     <h3 className="text-lg font-semibold text-gray-700 mb-2">Responsibilities</h3>
-                    <p className="text-sm text-gray-600">{responsibility}</p>
+                    <div className="text-sm text-gray-600">
+                        {parse(responsibility.replace(/<highlighttext>/g, '<span class="highlighttext">').replace(/<\/highlighttext>/g, '</span>'))}
+                    </div>
                 </div>
                 <div className="mb-6">
                     <h3 className="text-lg font-semibold text-gray-700 mb-2">Cover Letter</h3>
