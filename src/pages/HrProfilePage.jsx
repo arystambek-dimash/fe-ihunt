@@ -146,30 +146,6 @@ const HrProfilePage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="text-center sm:text-start w-52">
-                    <p className="text-base font-semibold">HeadHunter</p>
-                    {user.hasHHAccount ? (
-                        <p className="mt-2 px-4 py-2 bg-green-400 text-white rounded-md shadow-md">
-                            Connected
-                        </p>
-                    ) : (
-                        <Link
-                            to="https://hh.ru/oauth/authorize?response_type=code&client_id=S0CP5DT8EU5QON7HMUAG46EULGBDA0CKR9L9MLS42163Q75S5096VB6ASMRLO958"
-                        >
-                            <button
-                                className="mt-2 px-4 py-2 bg-red-400 text-white rounded-md shadow-md hover:bg-red-500 transition-all duration-300">
-                                Connect HeadHunter
-                            </button>
-                        </Link>
-                    )}
-                </div>
-                <div className="text-center sm:text-start w-52">
-                    <p className="text-base font-semibold">LinkedIn</p>
-                    <button
-                        className="mt-2 px-4 py-2 bg-blue-300 text-white rounded-md shadow-md hover:bg-blue-400 transition-all duration-300">
-                        Connect LinkedIn
-                    </button>
-                </div>
             </div>
         </div>
     );
