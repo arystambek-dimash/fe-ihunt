@@ -19,3 +19,15 @@
 .active-link.active::after {
     transform: scaleX(1);
 }
+
+
+/* styles.css */
+.custom-hover:hover {
+    background-color: rgba(40, 40, 40, 0.98);
+}
+
+
+.highlighttext {
+    background-color: yellow;
+    font-weight: bold;
+}
