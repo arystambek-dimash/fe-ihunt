@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import NET from 'vanta/dist/vanta.net.min';
+import GLOBE from 'vanta/dist/vanta.globe.min';
 import * as THREE from 'three';
 import axios from 'axios';
 import {useAuth} from '../context/AuthContext';
@@ -17,7 +17,7 @@ const AutoResponseLoginPage = () => {
     useEffect(() => {
         let vantaEffect;
         if (vantaRef.current) {
-            vantaEffect = NET({
+            vantaEffect = GLOBE({
                 el: vantaRef.current,
                 THREE: THREE,
                 color: 0x1f1f1f,
@@ -43,7 +43,7 @@ const AutoResponseLoginPage = () => {
             const {accessToken, refreshToken} = response.data.tokens || {};
             if (accessToken && refreshToken) {
                 console.log('Login successful - accessToken:', accessToken);
-                login(accessToken, refreshToken, false); // Pass false for isHr
+                login(accessToken, refreshToken, false);
                 console.log('Navigating to profile...');
                 navigate('/auto-response/profile');
             } else {
@@ -115,7 +115,7 @@ const AutoResponseLoginPage = () => {
                         </div>
                         <div>
                             <button
-                                className="items-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 group relative flex w-full justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white transition-colors hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                className="items-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 type="submit"
                                 disabled={loading}
                             >
