@@ -29,8 +29,8 @@ const AutoResponseLandingPage = () => {
             open: false
         },
         {
-            question: 'Что такое Suhbat авто отклик?',
-            answer: 'Suhbat авто отклик - это платформа, которая помогает вам с откликами, резюме и сопроводительными письмами. Кстати, всё это работает автономно😎.',
+            question: 'Что такое I\'Hunt авто отклик?',
+            answer: 'I\'Hunt авто отклик - это платформа, которая помогает вам с откликами, резюме и сопроводительными письмами. Кстати, всё это работает автономно😎.',
             open: false
         },
         {
@@ -52,7 +52,6 @@ const AutoResponseLandingPage = () => {
             } else {
                 item.open = false;
             }
-
             return item;
         }));
     }
@@ -95,7 +94,7 @@ const AutoResponseLandingPage = () => {
                     <div
                         className="w-full text-white font-bold text-5xl leading-[62px] max-md:max-w-full max-md:text-4xl max-md:leading-[53px]"
                     >
-                        Suhbat - Начните получать приглашения прямо сейчас.
+                        I'Hunt - Начните получать приглашения прямо сейчас.
                     </div>
                     <div className="mt-12 w-full text-gray-200 leading-7 max-md:mt-10 max-md:max-w-full">
                         Чтобы начать нажмите кнопку
@@ -179,7 +178,7 @@ const AutoResponseLandingPage = () => {
             <section className="py-10 bg-gray-50 sm:py-16 lg:py-24 my-10">
                 <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
                     <div className="max-w-2xl mx-auto text-center">
-                        <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">
+                        <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl" data-aos="fade-up">
                             Часто Задаваемые вопросы
                         </h2>
                     </div>
@@ -189,6 +188,8 @@ const AutoResponseLandingPage = () => {
                             <div
                                 key={index}
                                 className="transition-all duration-200 bg-white border border-gray-200 cursor-pointer hover:bg-gray-50"
+                                data-aos="fade-up"
+                                data-aos-delay={`${200 + index * 200}`}
                             >
                                 <button
                                     type="button"
