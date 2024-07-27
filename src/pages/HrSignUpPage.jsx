@@ -61,7 +61,7 @@ const HrSignUpPage = () => {
                 formData.append('profileImage', profileImage);
             }
 
-            const response = await axios.post('http://localhost:8000/api/v1/users/hr/register', formData, {
+            const response = await axios.post('https://ihunt.azurewebsites.net/api/v1/users/hr/register', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

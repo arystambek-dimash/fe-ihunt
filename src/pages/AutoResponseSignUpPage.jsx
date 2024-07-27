@@ -61,7 +61,7 @@ const AutoResponseSignUpPage = () => {
                 formData.append('profileImage', profileImage);
             }
 
-            await axios.post('http://localhost:8000/api/v1/users/auto-response/register', formData, {
+            await axios.post('https://ihunt.azurewebsites.net/api/v1/users/auto-response/register', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

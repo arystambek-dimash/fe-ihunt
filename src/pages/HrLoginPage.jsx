@@ -36,7 +36,7 @@ const HrLoginPage = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await axios.post('http://localhost:8000/api/v1/users/hr/login', {
+            const response = await axios.post('https://ihunt.azurewebsites.net/api/v1/users/hr/login', {
                 email,
                 password
             });

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:8000/api/v1',
+    baseURL: 'https://ihunt.azurewebsites.net/api/v1',
 });
 
 const refreshAccessToken = async () => {
@@ -11,7 +11,7 @@ const refreshAccessToken = async () => {
         throw new Error('No refresh token available');
     }
     console.log(refreshToken)
-    const response = await axios.post('http://localhost:8000/api/v1/users/refresh-token', {refreshToken});
+    const response = await axios.post('https://ihunt.azurewebsites.net/api/v1/users/refresh-token', {refreshToken});
     const {accessToken} = response.data;
 
     localStorage.setItem('accessToken', accessToken);
