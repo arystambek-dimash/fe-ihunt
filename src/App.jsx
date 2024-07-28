@@ -22,6 +22,7 @@ import LinkedInCallbackPage from "./pages/LinkedinCallbackPage";
 import HrMainPage from "./pages/HrMainPage";
 import HrNavbar from "./components/HrNavbar";
 import ComingSoonPage from "./pages/ComingSoonPage";
+import {Analytics} from "@vercel/analytics/react";
 
 const AppContent = () => {
     const location = useLocation();
@@ -47,6 +48,7 @@ const AppContent = () => {
 
     return (
         <>
+            <Analytics/>
             {!isNotFoundPage && (showLandingNavbar ? <LandingNavbar/> : showAutoResponseNavbar ?
                 <AutoResponseNavbar/> : showHrNavbar ? <HrNavbar/> : null)}
             <Routes>
