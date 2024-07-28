@@ -16,7 +16,7 @@ const AutoResponseDashboardPage = () => {
             try {
                 const response = await api.get(`/vacancies/responses?page=${page}&limit=10`);
                 setJobs(response.data.vacancies);
-                setTotalPages(response.data.total);
+                setTotalPages(response.data.pages);
                 setFilteredJobs(response.data.vacancies);
             } catch (error) {
                 console.error('Error fetching jobs:', error);
