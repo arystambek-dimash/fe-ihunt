@@ -175,7 +175,7 @@ const AutoResponseProfilePage = () => {
                         </p>
                     ) : (
                         <Link
-                            to="https://iamhunt.vercel.app/api/v1/networks/linkedin"
+                            to="https://ihunt.azurewebsites.net/api/v1/networks/linkedin"
                         >
                             <button
                                 className="mt-2 px-4 py-2 bg-red-400 text-white rounded-md shadow-md hover:bg-red-500 transition-all duration-300">
