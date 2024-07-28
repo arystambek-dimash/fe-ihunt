@@ -73,11 +73,15 @@ const AutoResponseProfilePage = () => {
             <div className="flex flex-col sm:flex-row justify-between w-full items-center gap-4 sm:gap-0">
                 <div className="relative flex gap-5 items-center">
                     <div className="relative">
-                        <img
-                            src={profileImage}
-                            alt="Profile"
-                            className={`rounded-full w-24 h-24 object-cover border-4 border-gray-200 shadow-lg ${isEditing ? 'brightness-50' : ''}`}
-                        />
+                        <div
+                            className="rounded-full overflow-hidden w-16 h-16 sm:w-24 sm:h-24 border-4 border-gray-200 shadow-lg">
+                            <img
+                                src={profileImage}
+                                alt="Profile"
+                                className={`object-cover w-full h-full ${isEditing ? 'brightness-50' : ''}`}
+                            />
+                        </div>
+
                         {isEditing && (
                             <>
                                 <label htmlFor="file-input">
@@ -106,7 +110,7 @@ const AutoResponseProfilePage = () => {
                     </div>
                 </div>
                 <button
-                    className={`px-8 py-3 text-white rounded-lg ${isEditing ? 'bg-red-500 hover:bg-red-600' : 'bg-black hover:bg-gray-800'} transition-all duration-300 shadow-md`}
+                    className={`px-5 py-2 text-white rounded-lg sm:px-8 sm:py-3 ${isEditing ? 'bg-red-500 hover:bg-red-600' : 'bg-black hover:bg-gray-800'} transition-all duration-300 shadow-md`}
                     onClick={handleEditClick}
                 >
                     {isEditing ? 'Save' : 'Edit'}
@@ -171,7 +175,7 @@ const AutoResponseProfilePage = () => {
                         </p>
                     ) : (
                         <Link
-                            to="http://localhost:8000/api/v1/networks/linkedin"
+                            to="https://iamhunt.vercel.app/api/v1/networks/linkedin"
                         >
                             <button
                                 className="mt-2 px-4 py-2 bg-red-400 text-white rounded-md shadow-md hover:bg-red-500 transition-all duration-300">

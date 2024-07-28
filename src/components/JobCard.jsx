@@ -51,19 +51,19 @@ const JobCard = ({
     return (
         <>
             <article
-                className="flex flex-col justify-center p-4 mt-4 w-full leading-6 bg-gray-100 rounded-2xl shadow-lg max-w-[1158px] md:max-w-full">
+                className="flex flex-col justify-center p-4 mt-4 w-full bg-white rounded-2xl shadow-lg max-w-[1158px] md:max-w-full">
                 <div className="flex gap-3 md:flex-wrap">
                     <img loading="lazy" src={employer_logo} alt={`${employer_name} logo`}
-                         className="shrink-0 self-start aspect-square w-[84px] rounded-full border shadow-md"/>
+                         className="shrink-0 self-start w-20 h-20 rounded-full border shadow-md"/>
                     <div className="flex flex-1 gap-5 justify-between md:flex-wrap md:max-w-full">
-                        <div className="flex flex-col px-px text-sm text-neutral-500">
+                        <div className="flex flex-col flex-1 px-px text-sm text-neutral-500">
                             <a href={url} target="_blank" rel="noopener noreferrer"
-                               className="text-lg font-semibold leading-6 text-neutral-700 hover:underline">
+                               className="text-lg font-semibold text-neutral-700 hover:underline">
                                 {employer_name}
                             </a>
                             <p className="text-gray-600">{job_name}</p>
                         </div>
-                        <div className="flex flex-col self-end pb-5">
+                        <div className="flex flex-col justify-between text-right">
                             <p className="text-gray-700">Salary: {salary || 'undefined'}</p>
                             <button onClick={openModal} className="mt-2 text-sm text-indigo-500 hover:underline">View
                                 Details

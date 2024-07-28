@@ -41,7 +41,7 @@ const AutoResponseNavbar = () => {
     if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <div className="flex flex-col pt-6 bg-white">
+        <div className="flex flex-col pt-6 pb-4 bg-white">
             <div
                 className="flex gap-5 self-center px-5 w-full text-black max-w-[93%] max-md:flex-wrap max-md:max-w-full">
                 <div className="flex-auto my-auto text-3xl font-bold">
