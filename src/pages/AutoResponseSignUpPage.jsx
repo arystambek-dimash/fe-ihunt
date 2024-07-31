@@ -190,31 +190,6 @@ const AutoResponseSignUpPage = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <div className="space-y-2">
-                        <label
-                            className="text-sm font-medium text-gray-700"
-                            htmlFor="profile-image"
-                        >
-                            Фото профиля
-                        </label>
-                        <div className="flex items-center gap-4">
-                            <input
-                                className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                id="profile-image"
-                                type="file"
-                                onChange={handleImageChange}
-                            />
-                            <div className="overflow-hidden rounded-full">
-                                <img
-                                    src={profileImageUrl}
-                                    alt="Фото профиля"
-                                    width="64"
-                                    height="64"
-                                    className="aspect-square object-cover"
-                                />
-                            </div>
-                        </div>
-                    </div>
                     <div className="flex justify-center">
                         <button
                             className="items-center whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
