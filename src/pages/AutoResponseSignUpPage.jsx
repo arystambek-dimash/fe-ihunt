@@ -4,6 +4,7 @@ import GLOBE from 'vanta/dist/vanta.globe.min';
 import * as THREE from 'three';
 import axios from 'axios';
 import Modal from 'react-modal';
+import {useAuth} from "../context/AuthContext";
 
 const AutoResponseSignUpPage = () => {
     const [firstName, setFirstName] = useState('');
@@ -11,6 +12,7 @@ const AutoResponseSignUpPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [profileImage, setProfileImage] = useState(null);
+    const {login} = useAuth();
     const [profileImageUrl, setProfileImageUrl] = useState('https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=');
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -61,16 +63,22 @@ const AutoResponseSignUpPage = () => {
                 formData.append('profileImage', profileImage);
             }
 
-            await axios.post('https://ihunt.azurewebsites.net/api/v1/users/auto-response/register', formData, {
+            const response = await axios.post('https://ihunt.azurewebsites.net/api/v1/users/auto-response/register', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
 
-            setSuccessMessage('Registration successful. Check email to verify your email.');
             setError('');
-            setIsModalOpen(true);
-        } catch (err) {
+            const {accessToken, refreshToken} = response.data.tokens || {};
+            if (accessToken && refreshToken) {
+                console.log('Login successful - accessToken:', accessToken);
+                login(accessToken, refreshToken, false);
+                console.log('Navigating to profile...');
+                navigate('/auto-response/profile');
+            } else {
+                throw new Error('Tokens not found in response');
+            }        } catch (err) {
             console.log(err.response);
             const statusCode = err.response && err.response.status;
             if (statusCode === 409) {
