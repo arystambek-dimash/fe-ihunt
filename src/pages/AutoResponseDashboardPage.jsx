@@ -41,16 +41,19 @@ const AutoResponseDashboardPage = () => {
                     <SearchBar setFilteredJobs={setFilteredJobs} jobs={jobs}/>
                 </div>
                 <div className="mt-8 w-full max-w-4xl space-y-6">
-                    {filteredJobs.map((job, index) => (
-                        <JobCard key={index} {...job} />
-                    ))}
+                    {filteredJobs.length > 0 ? (
+                        filteredJobs.map((job, index) => (
+                            <JobCard key={index} {...job} />
+                        ))
+                    ) : (
+                        <p className="text-center text-gray-500">Вакансии не найдены</p>
+                    )}
                 </div>
                 <div className="mt-12">
                     <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange}/>
                 </div>
             </main>
         </div>
-
     );
 };
 
