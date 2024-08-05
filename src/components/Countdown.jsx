@@ -1,8 +1,7 @@
-// Countdown.js
 import React, {useEffect, useState} from 'react';
 import {getTimeRemaining} from "../utils";
 
-const jobTimes = ['10:00', '15:00', '18:00', '23:59']; // Время задач в 24-часовом формате
+const jobTimes = ['01:00', '03:00', '05:00', '07:00', '09:00', '11:00', '13:00', '15:00', '17:00', '19:00', '21:00', '23:00'];
 
 const Countdown = () => {
     const [timeRemaining, setTimeRemaining] = useState(getTimeRemaining(jobTimes));
